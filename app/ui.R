@@ -55,19 +55,23 @@ shinyUI(fluidPage(
   
   ## EXAMPLE INPUTS DIV ----
   div( # re-using chart classes to make smoother outlining
-    class = 'chart-container',
-    div(
-      class = 'chart-block',
-      fluidRow(
-        column(12, 
-               selectInput(inputId = 'Wallet_Types',
-                           label = "Wallet Types",
-                           choices = c("Treasury","Central Exchange", "Pool"),
-                           selected = NULL, multiple = TRUE)
-               )
+      class = 'chart-container',
+      div(
+        class = 'chart-block',
+        fluidRow(
+          column(5, 
+                   checkboxGroupButtons(
+                     inputId = "Wallet_Types",
+                     label = "Wallet Types",
+                     choices = c("Treasury","Central Exchange"),
+                     selected = 'Treasury',
+                     individual = TRUE
+                   )
+                )
+        )
+        
       )
-      
-    )),
+    ),
 
   
   # EXAMPLE REACTABLE TABLE DIV ----
@@ -76,9 +80,10 @@ shinyUI(fluidPage(
     class = 'chart-container',
     div(
       class = 'chart-block',
-      div(class = 'chart-title', span('Wallet Balances')),
-              reactableOutput("myreactable")
-              # DT::dataTableOutput("mytable")
+      div(class = 'chart-title', 
+      span('Wallet Balances')),
+      # csvDownloadButton("myreactable", filename = "data.csv"),
+      reactableOutput("myreactable"),
       )
     )
   
